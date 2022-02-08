@@ -21,7 +21,7 @@ setup(
     include_package_data=True,
     python_requires=">=3.8.8",
     install_requires=[
-        "numpy>=1.21, <1.22.1",
+        "numpy==1.20.0",
         "pytest>=6.2.2, <6.2.5",
     ],
 )
