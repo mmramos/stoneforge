@@ -14,36 +14,50 @@ else:
 # ---------------------------------------------------------- #
 # function
 
-def uniform_values(limits = (0.0,1.0), size = None):
+def sorted_values (configuration, size = 15, seed = 99):
 
-    np.random.seed(99)
+    np.random.seed(seed)
 
-    return np.random.uniform(low = limits[0], high = limits[1], size = size)
+    # transform ["a","b","c"] into "a,b,c"
+    list_names = list(configuration.keys())
+    values_names = ','.join(list_names)
+
+    property_values = []
+    for k in configuration:
+        property = np.random.uniform(low = configuration[k][0], high = configuration[k][1], size = size)
+        property_values.append(property)
+
+    property_values = np.array(property_values).T
+
+    return property_values,values_names
 
 # ---------------------------------------------------------- #
 # where all modifications will be applied
 
-density_values = []
-for i in range(15):
-    rhob = uniform_values()
-    rhom = uniform_values()
-    rhof = uniform_values()
-    density_values.append((rhob, rhom, rhof))
+config_1 = {
+    "rhob":(0.0,1.0),
+    "rhom":(0.0,1.0),
+    "rhof":(0.0,1.0),
+}
 
-@pytest.mark.parametrize("rhob, rhom, rhof", density_values)
+density_values = sorted_values(config_1)
+
+@pytest.mark.parametrize(density_values[1], density_values[0])
 def test_density(rhob, rhom, rhof):
     p = porosity(rhob = rhob, rhom = rhom, rhof = rhof,
                         method = "density")
     assert p >= 0 and p <= 1
 
-neutron_values = []
-for i in range(15):
-    nphi = uniform_values()
-    vsh = uniform_values()
-    nphi_sh = uniform_values()
-    neutron_values.append((nphi, vsh, nphi_sh))
 
-@pytest.mark.parametrize("nphi, vsh, nphi_sh", neutron_values)
+config_2 = {
+    "nphi":(0.0,1.0),
+    "vsh":(0.0,1.0),
+    "nphi_sh":(0.0,1.0),
+}
+
+neutron_values = sorted_values(config_2)
+
+@pytest.mark.parametrize(neutron_values[1], neutron_values[0])
 def test_neutron(nphi, vsh, nphi_sh):
     p = porosity(nphi = nphi, vsh = vsh, nphi_sh = nphi_sh,
                         method = "neutron")
