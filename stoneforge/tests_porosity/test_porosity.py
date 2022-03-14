@@ -11,14 +11,23 @@ else:
     sys.path.append(os.path.dirname(__file__) + '/..')
     from petrophysics.porosity import porosity
 
+# ---------------------------------------------------------- #
+# function
 
-np.random.seed(99)
+def uniform_values(limits = (0.0,1.0), size = None):
+
+    np.random.seed(99)
+
+    return np.random.uniform(low = limits[0], high = limits[1], size = size)
+
+# ---------------------------------------------------------- #
+# where all modifications will be applied
 
 density_values = []
 for i in range(15):
-    rhob = np.random.uniform(low=1.0, high=3.0, size=None)
-    rhom = np.random.uniform(low=1.0, high=2.5, size=None)
-    rhof = np.random.uniform(low=0.0, high=1.10, size=None)
+    rhob = uniform_values()
+    rhom = uniform_values()
+    rhof = uniform_values()
     density_values.append((rhob, rhom, rhof))
 
 @pytest.mark.parametrize("rhob, rhom, rhof", density_values)
@@ -27,12 +36,11 @@ def test_density(rhob, rhom, rhof):
                         method = "density")
     assert p >= 0 and p <= 1
 
-
 neutron_values = []
 for i in range(15):
-    nphi = np.random.uniform(low=0.0, high=1.0, size=None)
-    vsh = np.random.uniform(low=0.0, high=1.0, size=None)
-    nphi_sh = np.random.uniform(low=0.0, high=1.0, size=None)
+    nphi = uniform_values()
+    vsh = uniform_values()
+    nphi_sh = uniform_values()
     neutron_values.append((nphi, vsh, nphi_sh))
 
 @pytest.mark.parametrize("nphi, vsh, nphi_sh", neutron_values)
@@ -40,6 +48,8 @@ def test_neutron(nphi, vsh, nphi_sh):
     p = porosity(nphi = nphi, vsh = vsh, nphi_sh = nphi_sh,
                         method = "neutron")
     assert p >= 0 and p <= 1
+
+# ---------------------------------------------------------- #
 
 
 not_squared_neutron_density_values = []
