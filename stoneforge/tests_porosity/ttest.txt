@@ -1,0 +1,32 @@
+============================= test session starts =============================
+platform win32 -- Python 3.8.8, pytest-6.2.4, py-1.11.0, pluggy-0.13.1
+rootdir: D:\github\stoneforge
+collected 77 items
+
+test_porosity.py ....................................................... [ 71%]
+......................                                                   [100%]
+
+============================== warnings summary ===============================
+stoneforge/tests_porosity/test_porosity.py::test_neutron[0.29762249870394397-0.5543457845906854-0.8986441870723998]
+stoneforge/tests_porosity/test_porosity.py::test_neutron[0.04669572050695325-0.2922691159591616-0.5522344268776632]
+stoneforge/tests_porosity/test_porosity.py::test_neutron[0.006825733043655191-0.8280425662068114-0.9288781834957359]
+  D:\github\stoneforge\stoneforge\tests_porosity/..\petrophysics\porosity.py:83: UserWarning: phin must be a positive value
+    warnings.warn(UserWarning("phin must be a positive value"))
+
+stoneforge/tests_porosity/test_porosity.py::test_neutron_density[0.8254951740358963-0.5244147153752401]
+stoneforge/tests_porosity/test_porosity.py::test_neutron_density[0.8080499633648477-0.813308412782129]
+stoneforge/tests_porosity/test_porosity.py::test_neutron_density[0.9906273994707961-0.8161423599871882]
+stoneforge/tests_porosity/test_porosity.py::test_neutron_density[0.7467671009942997-0.6448347016033116]
+  D:\github\stoneforge\stoneforge\tests_porosity/..\petrophysics\porosity.py:121: UserWarning: phi must be between 0 and 1
+    warnings.warn(UserWarning("phi must be between 0 and 1"))
+
+stoneforge/tests_porosity/test_porosity.py::test_unique_density[2.6-1.1-1.1]
+  D:\github\stoneforge\stoneforge\tests_porosity/..\petrophysics\porosity.py:35: UserWarning: this will result in a divison by 0
+    warnings.warn(UserWarning("this will result in a divison by 0"))
+
+stoneforge/tests_porosity/test_porosity.py::test_unique_sonic[75.0-100.0-100.0]
+  D:\github\stoneforge\stoneforge\tests_porosity/..\petrophysics\porosity.py:173: UserWarning: this will result in a divison by 0
+    warnings.warn(UserWarning("this will result in a divison by 0"))
+
+-- Docs: https://docs.pytest.org/en/stable/warnings.html
+======================= 77 passed, 9 warnings in 0.30s ========================
