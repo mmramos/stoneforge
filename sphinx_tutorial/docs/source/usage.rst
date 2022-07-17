@@ -19,4 +19,14 @@ Creating recipes
 
 .. autofunction:: lumache.density_porosity
 
+Porosity
+--------
+
+.. automodule:: porosity
+   :members:
+
+
+   
+
+
 

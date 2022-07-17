@@ -10,6 +10,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
@@ -17,9 +18,9 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Lumache'
-copyright = '2022, Graziella'
-author = 'Graziella'
+project = 'Stoneforge'
+copyright = '2022, GIECAR'
+author = 'GIECAR'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1'
@@ -34,8 +35,10 @@ extensions = [
    'sphinx.ext.duration',
    'sphinx.ext.doctest',
    'sphinx.ext.autodoc',
-   'numpydoc',
+   'numpydoc', # !!! personal addition: Enables current numpy documentation alongside sphinx standard !!!
    'sphinx.ext.autosummary',
+   'sphinx.ext.napoleon',
+   'sphinx.ext.intersphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -58,3 +61,5 @@ html_theme = 'sphinxdoc'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# -- !!! Extras for npt.ArrayLike !!!
