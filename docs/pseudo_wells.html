@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Pseudo Wells &#8212; Stoneforge 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinxdoc.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="rock Physics" href="rock_physics.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rock_physics.html" title="rock Physics"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Stoneforge 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Pseudo Wells</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pseudo-wells">
+<h1>Pseudo Wells<a class="headerlink" href="#pseudo-wells" title="Permalink to this headline">¶</a></h1>
+<section id="module-monte_carlo_simulations">
+<span id="monte-carlo-simulations"></span><h2>Monte Carlo Simulations<a class="headerlink" href="#module-monte_carlo_simulations" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.MCS_correlated_variables">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">MCS_correlated_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_data1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_data2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.MCS_correlated_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines n Monte Carlo Simulations (MCS) using data1 and data2 as correlated
+variables <a class="reference internal" href="#r4a6010ebee13-1" id="id1">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n</strong><span class="classifier">integer</span></dt><dd><p>Number of simulations to be performed.</p>
+</dd>
+<dt><strong>data1</strong><span class="classifier">array_like</span></dt><dd><p>A dataset that represents a given porperty, related to data2.</p>
+</dd>
+<dt><strong>data2</strong><span class="classifier">array_like</span></dt><dd><p>A dataset that represents a given porperty, related to data1.</p>
+</dd>
+<dt><strong>smooth_data1</strong><span class="classifier">array_like</span></dt><dd><p>A smoothed version of the data1, or its general trend.</p>
+</dd>
+<dt><strong>smooth_data2</strong><span class="classifier">array_like</span></dt><dd><p>A smoothed version of the data2, or its general trend.</p>
+</dd>
+<dt><strong>cov</strong><span class="classifier">array_like</span></dt><dd><p>Spatial symmetrical covariance matrix representing both data1 and data2.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>simulations</strong><span class="classifier">array_like</span></dt><dd><p>n Monte Carlo Simulations with correlated variables for data1 and n Monte
+Carlo Simulations with correlated variables for data2, in this order.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r4a6010ebee13-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock</p>
+</dd>
+</dl>
+<p>properties. [S.l.]: Cambridge University Press, 2014.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.MCS_spacial_correlation">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">MCS_spacial_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cov</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.MCS_spacial_correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines n Monte Carlo Simulations (MCS) with spatial correlation <a class="reference internal" href="#rc170e4f41327-1" id="id3">[1]</a> for a given
+dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>n</strong><span class="classifier">integer</span></dt><dd><p>Number of simulations to be performed.</p>
+</dd>
+<dt><strong>smooth_data</strong><span class="classifier">array_like</span></dt><dd><p>a smoothed version of the data under examination, or its general trend.</p>
+</dd>
+<dt><strong>cov</strong><span class="classifier">array_like</span></dt><dd><p>Spatial symmetrical covariance matrix of the data.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>simulations</strong><span class="classifier">array_like</span></dt><dd><p>n Monte Carlo simulations with spatial correlation for a given property,
+each line of this matrix represents a different simulation.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rc170e4f41327-1"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock</p>
+</dd>
+</dl>
+<p>properties. [S.l.]: Cambridge University Press, 2014.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.analytical_variogram">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">analytical_variogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gama</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'best-fit'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.analytical_variogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fits the choosen analytical variogram function (model) to the experimental one <a class="reference internal" href="#r17356f20b7c3-1" id="id5">[1]</a>,
+if no model is choosen, determines the best model to fit, comparing the Gaussian,
+Exponential and Spherical models <a class="reference internal" href="#r17356f20b7c3-2" id="id6">[2]</a>.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>distance</strong><span class="classifier">array_like</span></dt><dd><p>1D array containing all the possible distances between a pair of points
+in the dataset.</p>
+</dd>
+<dt><strong>gama</strong><span class="classifier">array_like</span></dt><dd><p>1D experimental variogram of the data under examination.</p>
+</dd>
+<dt><strong>model</strong><span class="classifier">str, optional</span></dt><dd><dl class="simple">
+<dt>Analytical variogram model to be fitted.  Should be one of:</dt><dd><ul class="simple">
+<li><p>“exponential”: fits the exponential model</p></li>
+<li><p>“gaussian”: fits the gaussian model</p></li>
+<li><p>“spherical”: fits the spherical model</p></li>
+<li><p>“best-fit”: fits the three models above and verifies which one produces
+the smallest error.</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is “best-fit”.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>modeled_variogram</strong><span class="classifier">array_like</span></dt><dd><p>The variogram model that has been choosen, or the variogram model that fits the
+best the experimental one.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r17356f20b7c3-1"><span class="brackets"><a class="fn-backref" href="#id5">1</a></span></dt>
+<dd><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html</a></p>
+</dd>
+<dt class="label" id="r17356f20b7c3-2"><span class="brackets"><a class="fn-backref" href="#id6">2</a></span></dt>
+<dd><p>GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,</p>
+</dd>
+</dl>
+<p>Examples and Algorithms. India: Wiley Blackwell, 2021.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.cov_matrix">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">cov_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.cov_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the 1D spatial symmetrical covariance matrix <a class="reference internal" href="#r825ce8dac5f9-1" id="id9">[1]</a> from a modeled
+correlation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rho</strong><span class="classifier">array_like</span></dt><dd><p>1D modeled correlation function of the data under examination.</p>
+</dd>
+<dt><strong>var</strong><span class="classifier">float</span></dt><dd><p>Variance (the square of the standard deviation) of the dataset.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>cov</strong><span class="classifier">array_like</span></dt><dd><p>Spatial symmetrical covariance matrix of the data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r825ce8dac5f9-1"><span class="brackets"><a class="fn-backref" href="#id9">1</a></span></dt>
+<dd><p>Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock</p>
+</dd>
+</dl>
+<p>properties. [S.l.]: Cambridge University Press, 2014.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.experimental_correlation">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">experimental_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.experimental_correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the 1D experimental correlation function <a class="reference internal" href="#rcc9c06b17b7c-1" id="id11">[1]</a> for a dataset by calculating
+the Pearson correlation coefficient for each possible separation of samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">array_like</span></dt><dd><p>1D dataset for which the experimental correlation function must be calculated.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>rho</strong><span class="classifier">array_like</span></dt><dd><p>1D experimental correlation function of the data under examination.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rcc9c06b17b7c-1"><span class="brackets"><a class="fn-backref" href="#id11">1</a></span></dt>
+<dd><p>Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock</p>
+</dd>
+</dl>
+<p>properties. [S.l.]: Cambridge University Press, 2014.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.experimental_variogram">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">experimental_variogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rho</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.experimental_variogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the 1D experimental variogram <a class="reference internal" href="#rc8f8e0e90879-1" id="id13">[1]</a> of a dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>data</strong><span class="classifier">array_like</span></dt><dd><p>1D dataset for which the experimental variogram must be calculated.</p>
+</dd>
+<dt><strong>rho</strong><span class="classifier">array_like</span></dt><dd><p>1D experimental correlation function of the data under examination.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>gama</strong><span class="classifier">array_like</span></dt><dd><p>1D experimental variogram of the data under examination.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rc8f8e0e90879-1"><span class="brackets"><a class="fn-backref" href="#id13">1</a></span></dt>
+<dd><p>Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock</p>
+</dd>
+</dl>
+<p>properties. [S.l.]: Cambridge University Press, 2014.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.exponential_variogram_model">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">exponential_variogram_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation_length</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sill</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nugget</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.exponential_variogram_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a variogram following the exponential model, using the correlation length, sill and nugget given <a class="reference internal" href="#re2238df29e8c-1" id="id15">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>distance</strong><span class="classifier">array_like</span></dt><dd><p>1D array containing all the possible distances between a pair of points
+in the dataset.</p>
+</dd>
+<dt><strong>correlation_length</strong><span class="classifier">float</span></dt><dd><p>The range of the variogram, or the distance where it loses the correlation</p>
+</dd>
+<dt><strong>sill</strong><span class="classifier">float</span></dt><dd><p>The maximum value of the variogram, it is equivalent to the variance of the data</p>
+</dd>
+<dt><strong>nugget</strong><span class="classifier">float</span></dt><dd><p>The nugget effect, y value where the variogam begins</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>rho</strong><span class="classifier">array_like</span></dt><dd><p>The variogram that follows the exponential model and has the given correlation length, sill and nugget</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="re2238df29e8c-1"><span class="brackets"><a class="fn-backref" href="#id15">1</a></span></dt>
+<dd><p>GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,</p>
+</dd>
+</dl>
+<p>Examples and Algorithms. India: Wiley Blackwell, 2021.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.gaussian_variogram_model">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">gaussian_variogram_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation_length</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sill</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nugget</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.gaussian_variogram_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a variogram following the gaussian model, using the correlation length, sill and nugget given <a class="reference internal" href="#rc699135f27f5-1" id="id17">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>distance</strong><span class="classifier">array_like</span></dt><dd><p>1D array containing all the possible distances between a pair of points
+in the dataset.</p>
+</dd>
+<dt><strong>correlation_length</strong><span class="classifier">float</span></dt><dd><p>The range of the variogram, or the distance where it loses the correlation</p>
+</dd>
+<dt><strong>sill</strong><span class="classifier">float</span></dt><dd><p>The maximum value of the variogram, it is equivalent to the variance of the data</p>
+</dd>
+<dt><strong>nugget</strong><span class="classifier">float</span></dt><dd><p>The nugget effect, y value where the variogam begins</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>rho</strong><span class="classifier">array_like</span></dt><dd><p>The variogram that follows the gaussian model and has the given correlation length, sill and nugget</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rc699135f27f5-1"><span class="brackets"><a class="fn-backref" href="#id17">1</a></span></dt>
+<dd><p>GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,</p>
+</dd>
+</dl>
+<p>Examples and Algorithms. India: Wiley Blackwell, 2021.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.modeled_correlation">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">modeled_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gama</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.modeled_correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the 1D modeled correlation function <a class="reference internal" href="#ra4cd2c72782e-1" id="id19">[1]</a> from a variogram model <span id="id20">[Ra4cd2c72782e-2]</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gama</strong><span class="classifier">array_like</span></dt><dd><p>1D analytical variogram model.</p>
+</dd>
+<dt><strong>var</strong><span class="classifier">float</span></dt><dd><p>variance (the square of the standard deviation) of the dataset.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>rho</strong><span class="classifier">array_like</span></dt><dd><p>1D modeled correlation function of the data under examination.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="ra4cd2c72782e-1"><span class="brackets"><a class="fn-backref" href="#id19">1</a></span></dt>
+<dd><p>Dvorkin, J.; Gutierrez, M. A.; Grana, D. Seismic reflections of rock</p>
+</dd>
+</dl>
+<p>properties. [S.l.]: Cambridge University Press, 2014.
+.. [Ra4cd2c72782e-2] <a class="reference external" href="https://mmaelicke.github.io/scikit-gstat/reference/models.html">https://mmaelicke.github.io/scikit-gstat/reference/models.html</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="monte_carlo_simulations.spherical_variogram_model">
+<span class="sig-prename descclassname"><span class="pre">monte_carlo_simulations.</span></span><span class="sig-name descname"><span class="pre">spherical_variogram_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correlation_length</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sill</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nugget</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#monte_carlo_simulations.spherical_variogram_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a variogram following the spherical model, using the correlation length, sill and nugget given <a class="reference internal" href="#raa1bfe4beea2-1" id="id23">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>distance</strong><span class="classifier">array_like</span></dt><dd><p>1D array containing all the possible distances between a pair of points
+in the dataset.</p>
+</dd>
+<dt><strong>correlation_length</strong><span class="classifier">float</span></dt><dd><p>The range of the variogram, or the distance where it loses the correlation</p>
+</dd>
+<dt><strong>sill</strong><span class="classifier">float</span></dt><dd><p>The maximum value of the variogram, it is equivalent to the variance of the data</p>
+</dd>
+<dt><strong>nugget</strong><span class="classifier">float</span></dt><dd><p>The nugget effect, y value where the variogam begins</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>rho</strong><span class="classifier">array_like</span></dt><dd><p>The variogram that follows the spherical model and has the given correlation length, sill and nugget</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="raa1bfe4beea2-1"><span class="brackets"><a class="fn-backref" href="#id23">1</a></span></dt>
+<dd><p>GRANA, Dario; MUKERJI, Tapan; DOYEN, Philippe. Seismic Reservoir Modeling: Theory,</p>
+</dd>
+</dl>
+<p>Examples and Algorithms. India: Wiley Blackwell, 2021.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Pseudo Wells</a><ul>
+<li><a class="reference internal" href="#module-monte_carlo_simulations">Monte Carlo Simulations</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rock_physics.html"
+                        title="previous chapter">rock Physics</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pseudo_wells.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rock_physics.html" title="rock Physics"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Stoneforge 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Pseudo Wells</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, GIECAR.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,791 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>petrophysics &#8212; Stoneforge 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinxdoc.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="rock Physics" href="rock_physics.html" />
+    <link rel="prev" title="Welcome to stoneforge documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rock_physics.html" title="rock Physics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to stoneforge documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Stoneforge 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">petrophysics</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="petrophysics">
+<h1>petrophysics<a class="headerlink" href="#petrophysics" title="Permalink to this headline">¶</a></h1>
+<section id="module-porosity">
+<span id="porosity"></span><h2>Porosity<a class="headerlink" href="#module-porosity" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="porosity.density_porosity">
+<span class="sig-prename descclassname"><span class="pre">porosity.</span></span><span class="sig-name descname"><span class="pre">density_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rhob</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhom</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhof</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#porosity.density_porosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the porosity from the bulk density log <a class="reference internal" href="usage.html#r48341b6643bc-1" id="id1">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rhob</strong><span class="classifier">array_like</span></dt><dd><p>Bulk density log.</p>
+</dd>
+<dt><strong>rhom</strong><span class="classifier">int, float</span></dt><dd><p>Matrix density.</p>
+</dd>
+<dt><strong>rhof</strong><span class="classifier">int, float</span></dt><dd><p>Density of the fluid saturating the rock (Usually 1.0 for water and 1.1 for saltwater mud).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>phi</strong><span class="classifier">array_like</span></dt><dd><p>Total porosity for the aimed interval using the bulk density.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r48341b6643bc-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Schön, J. H. (2015). Physical properties of rocks: Fundamentals and</p>
+</dd>
+</dl>
+<p>principles of petrophysics. Elsevier.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="porosity.gaymard_porosity">
+<span class="sig-prename descclassname"><span class="pre">porosity.</span></span><span class="sig-name descname"><span class="pre">gaymard_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#porosity.gaymard_porosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the effective porosity using Gaymard-Poupon <a class="reference internal" href="usage.html#rafa41448f9be-1" id="id3">[1]</a> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>phid</strong><span class="classifier">array_like</span></dt><dd><p>Density porosity (porosity calculated using density log)</p>
+</dd>
+<dt><strong>phin</strong><span class="classifier">int, float</span></dt><dd><p>Neutron porosity (porosity calculated using neutron log)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>phie</strong><span class="classifier">array_like</span></dt><dd><p>Effective porosity using Gaymard-Poupon method</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rafa41448f9be-1"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
+<dd><p>Gaymard, R., and A. Poupon. “Response Of Neutron And Formation</p>
+</dd>
+</dl>
+<p>Density Logs In Hydrocarbon Bearing Formations.” The Log Analyst 9 (1968).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="porosity.neutron_density_porosity">
+<span class="sig-prename descclassname"><span class="pre">porosity.</span></span><span class="sig-name descname"><span class="pre">neutron_density_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phid</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#porosity.neutron_density_porosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity <a href="#id20"><span class="problematic" id="id5">[1]_</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>phid</strong><span class="classifier">array_like</span></dt><dd><p>Effective porosity and shale free for the aimed interval using the bulk density.</p>
+</dd>
+<dt><strong>phin</strong><span class="classifier">array_like</span></dt><dd><p>Effective porosity from the neutron log for the aimed interval.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>phie</strong><span class="classifier">array_like</span></dt><dd><p>Effective porosity from the Bulk Density porosity and Neutron porosity mean.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>TODO</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="porosity.neutron_porosity">
+<span class="sig-prename descclassname"><span class="pre">porosity.</span></span><span class="sig-name descname"><span class="pre">neutron_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nphi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nphi_sh</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#porosity.neutron_porosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the effective porosity from the neutron log <a class="reference internal" href="usage.html#r743ccf9916f3-1" id="id6">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>nphi</strong><span class="classifier">array_like</span></dt><dd><p>neutron log.</p>
+</dd>
+<dt><strong>vsh</strong><span class="classifier">array_like</span></dt><dd><p>Total volume of shale in the rock, chosen the most representative.</p>
+</dd>
+<dt><strong>phi_nsh</strong><span class="classifier">int, float</span></dt><dd><p>Apparent porosity read in the shales on and under the layer under study and with the same values used in φN.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>phin</strong><span class="classifier">array_like</span></dt><dd><p>Effective porosity from the neutron log for the aimed interval.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r743ccf9916f3-1"><span class="brackets"><a class="fn-backref" href="#id6">1</a></span></dt>
+<dd><p>Schön, J. H. (2015). Physical properties of rocks: Fundamentals and</p>
+</dd>
+</dl>
+<p>principles of petrophysics. Elsevier.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="porosity.porosity">
+<span class="sig-prename descclassname"><span class="pre">porosity.</span></span><span class="sig-name descname"><span class="pre">porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'density'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#porosity.porosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute porosity from well logs.</p>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>density</p></li>
+<li><p>neutron</p></li>
+<li><p>neutron-density</p></li>
+<li><p>sonic</p></li>
+<li><p>gaymard</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>rhob</strong><span class="classifier">array_like</span></dt><dd><p>Bulk density log. Required if <cite>method</cite> is “denisty”.</p>
+</dd>
+<dt><strong>rhom</strong><span class="classifier">int, float</span></dt><dd><p>Matrix density. Required if <cite>method</cite> is “denisty”.</p>
+</dd>
+<dt><strong>rhof</strong><span class="classifier">int, float</span></dt><dd><p>Density of the fluid saturating the rock (Usually 1.0 for water and 1.1 for saltwater mud). Required if <cite>method</cite> is “denisty”.</p>
+</dd>
+<dt><strong>nphi</strong><span class="classifier">array_like</span></dt><dd><p>Neutron log. Required if <cite>method</cite> is “neutron”.</p>
+</dd>
+<dt><strong>vsh</strong><span class="classifier">array_like</span></dt><dd><p>Total volume of shale in the rock, chosen the most representative. Required if <cite>method</cite> is “neutron”.</p>
+</dd>
+<dt><strong>phi_nsh</strong><span class="classifier">int, float</span></dt><dd><p>Apparent porosity read in the shales on and under the layer under study and with the same values used in φN. Required if <cite>method</cite> is “neutron”.</p>
+</dd>
+<dt><strong>dt</strong><span class="classifier">array_like</span></dt><dd><p>Sonic log reading (acoustic transit time (μsec/ft)). Required if <cite>method</cite> is “sonic”.</p>
+</dd>
+<dt><strong>dtma</strong><span class="classifier">int, float</span></dt><dd><p>Acoustic transit time of the matrix (μsec/ft). Required if <cite>method</cite> is “sonic”.</p>
+</dd>
+<dt><strong>dtf</strong><span class="classifier">int, float</span></dt><dd><p>Acoustic transit time of the fluids, usually water (μsec/ft). Required if <cite>method</cite> is “sonic”.</p>
+</dd>
+<dt><strong>phid</strong><span class="classifier">array_like</span></dt><dd><p>Density porosity (porosity calculated using density log). Required if <cite>method</cite> is “neutron-density” or “gaymard.</p>
+</dd>
+<dt><strong>phin</strong><span class="classifier">int, float</span></dt><dd><p>Neutron porosity (porosity calculated using neutron log). Required if <cite>method</cite> is “neutron-density” or “gaymard.</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str, optional</span></dt><dd><dl class="simple">
+<dt>Name of the method to be used.  Should be one of</dt><dd><ul class="simple">
+<li><p>‘density’</p></li>
+<li><p>‘neutron’</p></li>
+<li><p>‘neutron-density’</p></li>
+<li><p>‘sonic’</p></li>
+<li><p>‘gaymard’</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘density’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>phi</strong><span class="classifier">array_like</span></dt><dd><p>Porosity log using the defined method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="porosity.sonic_porosity">
+<span class="sig-prename descclassname"><span class="pre">porosity.</span></span><span class="sig-name descname"><span class="pre">sonic_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#porosity.sonic_porosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the Porosity from sonic using the Wyllie time-average equation <a class="reference internal" href="usage.html#rbc3f22f041e9-1" id="id8">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dt</strong><span class="classifier">array_like</span></dt><dd><p>Sonic log reading (acoustic transit time (μsec/ft))</p>
+</dd>
+<dt><strong>dtma</strong><span class="classifier">int, float</span></dt><dd><p>Acoustic transit time of the matrix (μsec/ft)</p>
+</dd>
+<dt><strong>dtf</strong><span class="classifier">int, float</span></dt><dd><p>Acoustic transit time of the fluids, usually water (μsec/ft)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>phidt</strong><span class="classifier">array_like</span></dt><dd><p>Porosity from sonic.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rbc3f22f041e9-1"><span class="brackets"><a class="fn-backref" href="#id8">1</a></span></dt>
+<dd><ol class="upperalpha simple" start="13">
+<li><ol class="upperalpha simple" start="18">
+<li><ol class="upperalpha simple" start="10">
+<li><p>Wyllie, A. R. Gregory, and L. W. Gardner, (1956), “ELASTIC WAVE VELOCITIES IN HETEROGENEOUS AND POROUS MEDIA,” GEOPHYSICS 21: 41-70.</p></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-water_saturation">
+<span id="water-saturation"></span><h2>water_saturation<a class="headerlink" href="#module-water_saturation" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="water_saturation.archie">
+<span class="sig-prename descclassname"><span class="pre">water_saturation.</span></span><span class="sig-name descname"><span class="pre">archie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#water_saturation.archie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the Water Saturation from Archie’s <a class="reference internal" href="#rc3de120b82a3-1" id="id10">[1]</a> equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rw</strong><span class="classifier">int, float</span></dt><dd><p>Water resistivity.</p>
+</dd>
+<dt><strong>rt</strong><span class="classifier">array_like</span></dt><dd><p>Formation resistivity.</p>
+</dd>
+<dt><strong>phi</strong><span class="classifier">array_like</span></dt><dd><p>Porosity.</p>
+</dd>
+<dt><strong>a</strong><span class="classifier">int, float</span></dt><dd><p>Tortuosity factor.</p>
+</dd>
+<dt><strong>m</strong><span class="classifier">int, float</span></dt><dd><p>Cementation exponent.</p>
+</dd>
+<dt><strong>n</strong><span class="classifier">int, float</span></dt><dd><p>Saturation exponent.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>sw</strong><span class="classifier">array_like</span></dt><dd><p>Water saturation from Archie equation.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="rc3de120b82a3-1"><span class="brackets"><a class="fn-backref" href="#id10">1</a></span></dt>
+<dd><p>Archie GE (1942) The electrical resistivity log as an aid in determining some</p>
+</dd>
+</dl>
+<p>reservoir characteristics. Transactions of the AIME, 146(01), 54-62.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="water_saturation.fertl">
+<span class="sig-prename descclassname"><span class="pre">water_saturation.</span></span><span class="sig-name descname"><span class="pre">fertl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#water_saturation.fertl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate water saturation from Fertl <a class="reference internal" href="#re5201dd09ff3-1" id="id12">[1]</a> equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rw</strong><span class="classifier">int, float</span></dt><dd><p>Water resistivity.</p>
+</dd>
+<dt><strong>rt</strong><span class="classifier">array_like</span></dt><dd><p>True resistivity.</p>
+</dd>
+<dt><strong>phi</strong><span class="classifier">array_like</span></dt><dd><p>Porosity (must be effective).</p>
+</dd>
+<dt><strong>vsh</strong><span class="classifier">array_like</span></dt><dd><p>Clay volume log.</p>
+</dd>
+<dt><strong>a</strong><span class="classifier">int, float</span></dt><dd><p>Tortuosity factor.</p>
+</dd>
+<dt><strong>m</strong><span class="classifier">int, float</span></dt><dd><p>Cementation exponent.</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">int, float</span></dt><dd><p>Alpha parameter from Fertl equation.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>fertl</strong><span class="classifier">array_like</span></dt><dd><p>Water saturation from Fertl equation.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="re5201dd09ff3-1"><span class="brackets"><a class="fn-backref" href="#id12">1</a></span></dt>
+<dd><p>Fertl, W. H. (1975, June). Shaly sand analysis in development wells.
+In SPWLA 16th Annual Logging Symposium. OnePetro.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="water_saturation.indonesia">
+<span class="sig-prename descclassname"><span class="pre">water_saturation.</span></span><span class="sig-name descname"><span class="pre">indonesia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rsh</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#water_saturation.indonesia" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate water saturation from Poupon-Leveaux (Indonesia) <a class="reference internal" href="#r6d2bf0cf690c-1" id="id14">[1]</a> equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rw</strong><span class="classifier">int, float</span></dt><dd><p>Water resistivity.</p>
+</dd>
+<dt><strong>rt</strong><span class="classifier">array_like</span></dt><dd><p>True resistivity.</p>
+</dd>
+<dt><strong>phi</strong><span class="classifier">array_like</span></dt><dd><p>Porosity.</p>
+</dd>
+<dt><strong>vsh</strong><span class="classifier">array_like</span></dt><dd><p>Clay volume log.</p>
+</dd>
+<dt><strong>a</strong><span class="classifier">int, float</span></dt><dd><p>Tortuosity factor.</p>
+</dd>
+<dt><strong>m</strong><span class="classifier">int, float</span></dt><dd><p>Cementation exponent.</p>
+</dd>
+<dt><strong>n</strong><span class="classifier">int, float</span></dt><dd><p>Saturation exponent.</p>
+</dd>
+<dt><strong>rsh</strong><span class="classifier">float</span></dt><dd><p>Clay resistivity.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>indonesia</strong><span class="classifier">array_like</span></dt><dd><p>Water saturation from Poupon-Leveaux equation.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r6d2bf0cf690c-1"><span class="brackets"><a class="fn-backref" href="#id14">1</a></span></dt>
+<dd><p>Poupon, A. and Leveaux, J. (1971) Evaluation of Water Saturation in Shaly Formations.</p>
+</dd>
+</dl>
+<p>The Log Analyst, 12, 1-2.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="water_saturation.simandoux">
+<span class="sig-prename descclassname"><span class="pre">water_saturation.</span></span><span class="sig-name descname"><span class="pre">simandoux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rsh</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#water_saturation.simandoux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate water saturation from Simandoux <a class="reference internal" href="#r5bf65410532a-1" id="id16">[1]</a> equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>rw</strong><span class="classifier">int, float</span></dt><dd><p>Water resistivity.</p>
+</dd>
+<dt><strong>rt</strong><span class="classifier">array_like</span></dt><dd><p>True resistivity.</p>
+</dd>
+<dt><strong>phi</strong><span class="classifier">array_like</span></dt><dd><p>Porosity.</p>
+</dd>
+<dt><strong>a</strong><span class="classifier">int, float</span></dt><dd><p>Tortuosity factor.</p>
+</dd>
+<dt><strong>m</strong><span class="classifier">int, float</span></dt><dd><p>Cementation exponent.</p>
+</dd>
+<dt><strong>n</strong><span class="classifier">int, float</span></dt><dd><p>Saturation exponent.</p>
+</dd>
+<dt><strong>vsh</strong><span class="classifier">array_like</span></dt><dd><p>Clay volume log.</p>
+</dd>
+<dt><strong>rsh</strong><span class="classifier">int, float</span></dt><dd><p>Clay resistivity.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>sw</strong><span class="classifier">array_like</span></dt><dd><p>Water saturation from Simandoux equation.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r5bf65410532a-1"><span class="brackets"><a class="fn-backref" href="#id16">1</a></span></dt>
+<dd><p>Simandoux P (1963) Measures die techniques an milieu application a measure des</p>
+</dd>
+</dl>
+<p>saturation en eau, etude du comportement de massifs agrileux. Review du’Institute Francais
+du Patrole 18(Supplemen-tary Issue):193</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="water_saturation.water_saturation">
+<span class="sig-prename descclassname"><span class="pre">water_saturation.</span></span><span class="sig-name descname"><span class="pre">water_saturation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rw</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rt</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'archie'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#water_saturation.water_saturation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute water saturation from resistivity log.</p>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>archie</p></li>
+<li><p>simandoux</p></li>
+<li><p>indonesia</p></li>
+<li><p>fertl</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>rw</strong><span class="classifier">int, float</span></dt><dd><p>Water resistivity.</p>
+</dd>
+<dt><strong>rt</strong><span class="classifier">array_like</span></dt><dd><p>True resistivity.</p>
+</dd>
+<dt><strong>phi</strong><span class="classifier">array_like</span></dt><dd><p>Porosity (must be effective).</p>
+</dd>
+<dt><strong>a</strong><span class="classifier">int, float</span></dt><dd><p>Tortuosity factor.</p>
+</dd>
+<dt><strong>m</strong><span class="classifier">int, float</span></dt><dd><p>Cementation exponent.</p>
+</dd>
+<dt><strong>n</strong><span class="classifier">int, float</span></dt><dd><p>Saturation exponent. Required if <cite>method</cite> is “archie”, “simandoux” or
+“indonesia”.</p>
+</dd>
+<dt><strong>vsh</strong><span class="classifier">array_like</span></dt><dd><p>Clay volume log. Required if <cite>method</cite> is “simandoux”, “indonesia” or
+“fertl”.</p>
+</dd>
+<dt><strong>rsh</strong><span class="classifier">float</span></dt><dd><p>Clay resistivity. Required if <cite>method</cite> is “simandoux” or “indonesia”.</p>
+</dd>
+<dt><strong>alpha</strong><span class="classifier">array_like</span></dt><dd><p>Alpha parameter from Fertl equation. Required if <cite>method</cite> is “fertl”</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str, optional</span></dt><dd><dl class="simple">
+<dt>Name of the method to be used.  Should be one of</dt><dd><ul class="simple">
+<li><p>‘archie’</p></li>
+<li><p>‘simandoux’</p></li>
+<li><p>‘indonesia’</p></li>
+<li><p>‘fertl</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘archie’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>water_saturation</strong><span class="classifier">array_like</span></dt><dd><p>Water saturation for the aimed interval using the defined method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-shale_volume">
+<span id="shale-volume"></span><h2>shale_volume<a class="headerlink" href="#module-shale_volume" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="shale_volume.gammarayindex">
+<span class="sig-prename descclassname"><span class="pre">shale_volume.</span></span><span class="sig-name descname"><span class="pre">gammarayindex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#shale_volume.gammarayindex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the gamma ray index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gr</strong><span class="classifier">array_like</span></dt><dd><p>Gamma Ray log.</p>
+</dd>
+<dt><strong>grmin</strong><span class="classifier">int, float</span></dt><dd><p>Clean sand GR value.</p>
+</dd>
+<dt><strong>grmax</strong><span class="classifier">int, float</span></dt><dd><p>Shale/clay value.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>igr</strong><span class="classifier">array_like</span></dt><dd><p>The gamma ray index varying between 0.0 (clean sand) and 1.0 (shale).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="shale_volume.vshale">
+<span class="sig-prename descclassname"><span class="pre">shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#shale_volume.vshale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the shale volume from gamma ray log.</p>
+<dl class="simple">
+<dt>This is a façade for the methods:</dt><dd><ul class="simple">
+<li><p>vshale_linear</p></li>
+<li><p>vshale_larionov</p></li>
+<li><p>vshale_larionov_old</p></li>
+<li><p>vshale_clavier</p></li>
+<li><p>vshale_stieber</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>gr</strong><span class="classifier">array_like</span></dt><dd><p>Gamma Ray log.</p>
+</dd>
+<dt><strong>grmin</strong><span class="classifier">int, float</span></dt><dd><p>Clean sand GR value.</p>
+</dd>
+<dt><strong>grmax</strong><span class="classifier">int, float</span></dt><dd><p>Shale/clay value.</p>
+</dd>
+<dt><strong>method</strong><span class="classifier">str, optional</span></dt><dd><dl class="simple">
+<dt>Name of the method to be used.  Should be one of</dt><dd><ul class="simple">
+<li><p>‘linear’</p></li>
+<li><p>‘larionov’</p></li>
+<li><p>‘larionov_old’</p></li>
+<li><p>‘clavier’</p></li>
+<li><p>‘stieber’</p></li>
+</ul>
+</dd>
+</dl>
+<p>If not given, default method is ‘linear’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vshale</strong><span class="classifier">array_like</span></dt><dd><p>Shale Volume for the aimed interval using the defined method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="shale_volume.vshale_clavier">
+<span class="sig-prename descclassname"><span class="pre">shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_clavier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shale_volume.vshale_clavier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the shale volume from the Clavier model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gr</strong><span class="classifier">array_like</span></dt><dd><p>Gamma Ray log.</p>
+</dd>
+<dt><strong>grmin</strong><span class="classifier">int, float</span></dt><dd><p>Clean sand GR value.</p>
+</dd>
+<dt><strong>grmax</strong><span class="classifier">int, float</span></dt><dd><p>Shale/clay value.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vshale</strong><span class="classifier">array_like</span></dt><dd><p>Shale Volume for the aimed interval using the Clavier method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="shale_volume.vshale_larionov">
+<span class="sig-prename descclassname"><span class="pre">shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_larionov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#shale_volume.vshale_larionov" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the shale volume from the Larionov model for young rocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gr</strong><span class="classifier">array_like</span></dt><dd><p>Gamma Ray log.</p>
+</dd>
+<dt><strong>grmin</strong><span class="classifier">int, float</span></dt><dd><p>Clean sand GR value.</p>
+</dd>
+<dt><strong>grmax</strong><span class="classifier">int, float</span></dt><dd><p>Shale/clay value.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vshale</strong><span class="classifier">array_like</span></dt><dd><p>Shale Volume for the aimed interval using the Larionov method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="shale_volume.vshale_larionov_old">
+<span class="sig-prename descclassname"><span class="pre">shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_larionov_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#shale_volume.vshale_larionov_old" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the shale volume from the Larionov model for old rocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gr</strong><span class="classifier">array_like</span></dt><dd><p>Gamma Ray log.</p>
+</dd>
+<dt><strong>grmin</strong><span class="classifier">int, float</span></dt><dd><p>Clean sand GR value.</p>
+</dd>
+<dt><strong>grmax</strong><span class="classifier">int, float</span></dt><dd><p>Shale/clay value.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vshale</strong><span class="classifier">array_like</span></dt><dd><p>Shale Volume for the aimed interval using the Larionov method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="shale_volume.vshale_linear">
+<span class="sig-prename descclassname"><span class="pre">shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#shale_volume.vshale_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the shale volume from the linear model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gr</strong><span class="classifier">array_like</span></dt><dd><p>Gamma Ray log.</p>
+</dd>
+<dt><strong>grmin</strong><span class="classifier">int, float</span></dt><dd><p>Clean sand GR value.</p>
+</dd>
+<dt><strong>grmax</strong><span class="classifier">int, float</span></dt><dd><p>Shale/clay value.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vshale</strong><span class="classifier">array_like</span></dt><dd><p>Shale Volume for the aimed interval using the Linear method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="shale_volume.vshale_neu_den">
+<span class="sig-prename descclassname"><span class="pre">shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_neu_den</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">neu</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">den</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl1_n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl1_d</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl2_n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cl2_d</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clay_n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clay_d</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#shale_volume.vshale_neu_den" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates the shale volume from neutron and density logs method <a class="reference internal" href="#r006cb1ce6e3f-1" id="id18">[1]</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>neu</strong><span class="classifier">array_like</span></dt><dd><p>Neutron porosity log.</p>
+</dd>
+<dt><strong>den</strong><span class="classifier">array_like</span></dt><dd><p>Bulk density log.</p>
+</dd>
+<dt><strong>cl1_n</strong><span class="classifier">int, float</span></dt><dd><p>Neutron porosity value from clean point 1.</p>
+</dd>
+<dt><strong>cl1_d</strong><span class="classifier">int, float</span></dt><dd><p>Bulk density value from clean point 1.</p>
+</dd>
+<dt><strong>cl2_n</strong><span class="classifier">int, float</span></dt><dd><p>Neutron porosity value from clean point 2.</p>
+</dd>
+<dt><strong>cl2_d</strong><span class="classifier">int, float</span></dt><dd><p>Bulk density value from clean point 2.</p>
+</dd>
+<dt><strong>clay_n</strong><span class="classifier">int, float</span></dt><dd><p>Neutron porosity value from clay point.</p>
+</dd>
+<dt><strong>clay_d</strong><span class="classifier">int, float</span></dt><dd><p>Bulk density value from clay point.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vshale</strong><span class="classifier">array_like</span></dt><dd><p>Shale volume from neutron and density logs method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r006cb1ce6e3f-1"><span class="brackets"><a class="fn-backref" href="#id18">1</a></span></dt>
+<dd><p>Bhuyan, K., &amp; Passey, Q. R. (1994). Clay estimation from GR and</p>
+</dd>
+</dl>
+<p>neutron-density porosity logs. In SPWLA 35th Annual Logging Symposium.
+OnePetro.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="shale_volume.vshale_stieber">
+<span class="sig-prename descclassname"><span class="pre">shale_volume.</span></span><span class="sig-name descname"><span class="pre">vshale_stieber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmin</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grmax</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#shale_volume.vshale_stieber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimate the shale volume from the Stieber model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>gr</strong><span class="classifier">array_like</span></dt><dd><p>Gamma Ray log.</p>
+</dd>
+<dt><strong>grmin</strong><span class="classifier">int, float</span></dt><dd><p>Clean sand GR value.</p>
+</dd>
+<dt><strong>grmax</strong><span class="classifier">int, float</span></dt><dd><p>Shale/clay value.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vshale</strong><span class="classifier">array_like</span></dt><dd><p>Shale Volume for the aimed interval using the Stieber method.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">petrophysics</a><ul>
+<li><a class="reference internal" href="#module-porosity">Porosity</a></li>
+<li><a class="reference internal" href="#module-water_saturation">water_saturation</a></li>
+<li><a class="reference internal" href="#module-shale_volume">shale_volume</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to stoneforge documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="rock_physics.html"
+                        title="next chapter">rock Physics</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/petrophysics.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="rock_physics.html" title="rock Physics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to stoneforge documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Stoneforge 0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">petrophysics</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, GIECAR.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>
