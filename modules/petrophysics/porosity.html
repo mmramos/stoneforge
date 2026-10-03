@@ -76,6 +76,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.porosity.neutron_correction_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_correction_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
@@ -188,6 +189,12 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../pseudowells.html#module-stoneforge.pseudo_wells.referenced">Referenced-Based Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.referenced.anadrill_siliciclastic"><code class="docutils literal notranslate"><span class="pre">anadrill_siliciclastic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.referenced.color_codes"><code class="docutils literal notranslate"><span class="pre">color_codes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pseudowells.html#stoneforge.pseudo_wells.referenced.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../pseudowells.html#references">References</a></li>
 </ul>
 </li>
@@ -224,6 +231,19 @@
 <li class="toctree-l3"><a class="reference internal" href="../machinelearning/regression.html#references">References</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../data_management/index.html">Data Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../data_management/preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../data_management/preprocessing.html#module-stoneforge.data_management.preprocessing">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataManager"><code class="docutils literal notranslate"><span class="pre">DataManager</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../data_management/preprocessing.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../data_management/index.html#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -336,9 +356,31 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.neutron_correction_porosity">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">neutron_correction_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nphi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lito</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sandstone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">49</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dolomite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/porosity.html#neutron_correction_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.neutron_correction_porosity" title="Link to this definition"></a></dt>
+<dd><p>Estimate the effective porosity from the neutron log (Schön<a class="footnote-reference brackets" href="#footcite-schon1998physical" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nphi</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></span>) – Neutron porosity log.</p></li>
+<li><p><strong>lito</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></span>) – Lithology log.</p></li>
+<li><p><strong>sandstone</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – Flag indicating if the lithology is sandstone.</p></li>
+<li><p><strong>dolomite</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – Flag indicating if the lithology is dolomite.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>phin</strong> – Effective porosity from the neutron log for the aimed interval.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">array</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.neutron_density_porosity">
 <span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">neutron_density_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">squared</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/porosity.html#neutron_density_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.neutron_density_porosity" title="Link to this definition"></a></dt>
-<dd><p>Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity (Schön<a class="footnote-reference brackets" href="#footcite-schon1998physical" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p>
+<dd><p>Estimate the effective porosity by calculating the mean of Bulk Density porosity and Neutron porosity (Schön<a class="footnote-reference brackets" href="#footcite-schon1998physical" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -360,7 +402,7 @@ If False, the porosity is calculated using the mean of the two porosities. Defau
 <dl class="py function">
 <dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.neutron_porosity">
 <span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">neutron_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nphi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vsh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phish</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.48</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/porosity.html#neutron_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.neutron_porosity" title="Link to this definition"></a></dt>
-<dd><p>Estimate the effective porosity from the neutron log (Schön<a class="footnote-reference brackets" href="#footcite-schon1998physical" id="id6" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p>
+<dd><p>Estimate the effective porosity from the neutron log (Schön<a class="footnote-reference brackets" href="#footcite-schon1998physical" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -435,7 +477,7 @@ If False, the porosity is calculated using the mean of the two porosities. Defau
 <dl class="py function">
 <dt class="sig sig-object py" id="stoneforge.petrophysics.porosity.sonic_porosity">
 <span class="sig-prename descclassname"><span class="pre">stoneforge.petrophysics.porosity.</span></span><span class="sig-name descname"><span class="pre">sonic_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">55.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">175</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/stoneforge/petrophysics/porosity.html#sonic_porosity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.petrophysics.porosity.sonic_porosity" title="Link to this definition"></a></dt>
-<dd><p>Estimate the Porosity from sonic using the Wyllie <em>et al.</em><a class="footnote-reference brackets" href="#footcite-wyllie1956" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> time-average equation.</p>
+<dd><p>Estimate the Porosity from sonic using the Wyllie <em>et al.</em><a class="footnote-reference brackets" href="#footcite-wyllie1956" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> time-average equation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -456,11 +498,11 @@ If False, the porosity is calculated using the mean of the two porosities. Defau
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
-<div class="docutils container" id="id8">
+<div class="docutils container" id="id9">
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footcite-schon1998physical" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>,<a role="doc-backlink" href="#id5">3</a>,<a role="doc-backlink" href="#id6">4</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>,<a role="doc-backlink" href="#id5">3</a>,<a role="doc-backlink" href="#id6">4</a>,<a role="doc-backlink" href="#id7">5</a>)</span>
 <p>J. Schön. <em>Physical Properties of Rocks: Fundamentals and Principles of Petrophysics</em>. Handbook of geophysical exploration. Geophysical Press, 1998. ISBN 9780080410081. URL: <a class="reference external" href="https://shop.elsevier.com/books/physical-properties-of-rocks/schon/978-0-08-100404-3">https://shop.elsevier.com/books/physical-properties-of-rocks/schon/978-0-08-100404-3</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-gaymardpoupon1968" role="doc-footnote">
@@ -468,7 +510,7 @@ If False, the porosity is calculated using the mean of the two porosities. Defau
 <p>R. Gaymard and A. Poupon. Response of neutron and formation density logs in hydrocarbon bearing formations. <em>The Log Analyst</em>, 09 1968. URL: <a class="reference external" href="https://onepetro.org/petrophysics/article/171304/Response-Of-Neutron-And-Formation-Density-Logs-In">https://onepetro.org/petrophysics/article/171304/Response-Of-Neutron-And-Formation-Density-Logs-In</a>.</p>
 </aside>
 <aside class="footnote brackets" id="footcite-wyllie1956" role="doc-footnote">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">3</a><span class="fn-bracket">]</span></span>
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">3</a><span class="fn-bracket">]</span></span>
 <p>M. R. J. Wyllie, A. R. Gregory, and L. W. Gardner. Elastic wave velocities in heterogeneous and porous media. <em>GEOPHYSICS</em>, 21(1):41–70, 01 1956. URL: <a class="reference external" href="https://library.seg.org/doi/10.1190/1.1438217">https://library.seg.org/doi/10.1190/1.1438217</a>, <a class="reference external" href="https://doi.org/10.1190/1.1438217">doi:10.1190/1.1438217</a>.</p>
 </aside>
 </aside>

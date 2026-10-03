@@ -73,6 +73,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_correction_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_correction_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
@@ -185,6 +186,12 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/pseudowells.html#module-stoneforge.pseudo_wells.referenced">Referenced-Based Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/pseudowells.html#stoneforge.pseudo_wells.referenced.anadrill_siliciclastic"><code class="docutils literal notranslate"><span class="pre">anadrill_siliciclastic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/pseudowells.html#stoneforge.pseudo_wells.referenced.color_codes"><code class="docutils literal notranslate"><span class="pre">color_codes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/pseudowells.html#stoneforge.pseudo_wells.referenced.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../modules/pseudowells.html#references">References</a></li>
 </ul>
 </li>
@@ -221,6 +228,19 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../modules/machinelearning/regression.html#references">References</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/data_management/index.html">Data Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/data_management/preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/data_management/preprocessing.html#module-stoneforge.data_management.preprocessing">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataManager"><code class="docutils literal notranslate"><span class="pre">DataManager</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../modules/data_management/preprocessing.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../modules/data_management/index.html#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -374,6 +394,43 @@
 
     <span class="n">phin</span> <span class="o">=</span> <span class="n">correct_petrophysic_estimation_range</span><span class="p">(</span><span class="n">phin</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">phin</span></div>
+
+
+
+<div class="viewcode-block" id="neutron_correction_porosity">
+<a class="viewcode-back" href="../../../modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_correction_porosity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">neutron_correction_porosity</span><span class="p">(</span>
+    <span class="n">nphi</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">"Neutron porosity log in decimal units"</span><span class="p">],</span>
+    <span class="n">lito</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">"Lithology log"</span><span class="p">],</span>
+    <span class="n">sandstone</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">"Flag indicating if the lithology is sandstone"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">49</span><span class="p">,</span>
+    <span class="n">dolomite</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">"Flag indicating if the lithology is dolomite"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Estimate the effective porosity from the neutron log (:footcite:t:`schon1998physical`).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nphi : array_like</span>
+<span class="sd">        Neutron porosity log.</span>
+<span class="sd">    lito : array_like</span>
+<span class="sd">        Lithology log.</span>
+<span class="sd">    sandstone : int, float</span>
+<span class="sd">        Flag indicating if the lithology is sandstone.</span>
+<span class="sd">    dolomite : int, float</span>
+<span class="sd">        Flag indicating if the lithology is dolomite.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    phin : array_like</span>
+<span class="sd">        Effective porosity from the neutron log for the aimed interval.</span>
+
+<span class="sd">    """</span>
+    <span class="n">phin</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nphi</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">lito</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">sandstone</span><span class="p">:</span>
+            <span class="n">phin</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nphi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">0.04</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lito</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">dolomite</span><span class="p">:</span>
+            <span class="n">phin</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nphi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mf">0.06</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">phin</span><span class="p">)</span></div>
 
 
 

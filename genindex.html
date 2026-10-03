@@ -73,6 +73,7 @@
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_correction_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_correction_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
@@ -185,6 +186,12 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="modules/pseudowells.html#module-stoneforge.pseudo_wells.referenced">Referenced-Based Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/pseudowells.html#stoneforge.pseudo_wells.referenced.anadrill_siliciclastic"><code class="docutils literal notranslate"><span class="pre">anadrill_siliciclastic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/pseudowells.html#stoneforge.pseudo_wells.referenced.color_codes"><code class="docutils literal notranslate"><span class="pre">color_codes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/pseudowells.html#stoneforge.pseudo_wells.referenced.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="modules/pseudowells.html#references">References</a></li>
 </ul>
 </li>
@@ -221,6 +228,19 @@
 <li class="toctree-l3"><a class="reference internal" href="modules/machinelearning/regression.html#references">References</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/data_management/index.html">Data Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/data_management/preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/data_management/preprocessing.html#module-stoneforge.data_management.preprocessing">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataManager"><code class="docutils literal notranslate"><span class="pre">DataManager</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules/data_management/preprocessing.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/data_management/index.html#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -275,10 +295,16 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.analytical_variogram">analytical_variogram() (in module stoneforge.pseudo_wells.monte_carlo_simulations)</a>
+      <li><a href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataManager.add_facie">add_facie() (stoneforge.data_management.preprocessing.DataManager method)</a>
+</li>
+      <li><a href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataManager.add_facies">add_facies() (stoneforge.data_management.preprocessing.DataManager method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.referenced.anadrill_siliciclastic">anadrill_siliciclastic() (in module stoneforge.pseudo_wells.referenced)</a>
+</li>
+      <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.analytical_variogram">analytical_variogram() (in module stoneforge.pseudo_wells.monte_carlo_simulations)</a>
+</li>
       <li><a href="modules/petrophysics/water_saturation.html#stoneforge.petrophysics.water_saturation.archie">archie() (in module stoneforge.petrophysics.water_saturation)</a>
 </li>
   </ul></td>
@@ -299,12 +325,14 @@
 </li>
       <li><a href="modules/petrophysics/permeability.html#stoneforge.petrophysics.permeability.coates_dumanoir">coates_dumanoir() (in module stoneforge.petrophysics.permeability)</a>
 </li>
-      <li><a href="modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_modulus">compressional_modulus() (in module stoneforge.rock_physics.elastic_constants)</a>
+      <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.referenced.color_codes">color_codes() (in module stoneforge.pseudo_wells.referenced)</a>
 </li>
-      <li><a href="modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_wave_velocity">compressional_wave_velocity() (in module stoneforge.rock_physics.elastic_constants)</a>
+      <li><a href="modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_modulus">compressional_modulus() (in module stoneforge.rock_physics.elastic_constants)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/rockphysics.html#stoneforge.rock_physics.elastic_constants.compressional_wave_velocity">compressional_wave_velocity() (in module stoneforge.rock_physics.elastic_constants)</a>
+</li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.gem.constant_cement">constant_cement() (in module stoneforge.rock_physics.gem)</a>
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.gem.contact_cement">contact_cement() (in module stoneforge.rock_physics.gem)</a>
@@ -319,10 +347,16 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization">denormalization() (stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model method)</a>
+      <li><a href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataLoader.dataframe">dataframe() (stoneforge.data_management.preprocessing.DataLoader method)</a>
+</li>
+      <li><a href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataLoader">DataLoader (class in stoneforge.data_management.preprocessing)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataManager">DataManager (class in stoneforge.data_management.preprocessing)</a>
+</li>
+      <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.denormalization">denormalization() (stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model method)</a>
+</li>
       <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.density_porosity">density_porosity() (in module stoneforge.petrophysics.porosity)</a>
 </li>
   </ul></td>
@@ -347,6 +381,8 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataManager.facies">facies() (stoneforge.data_management.preprocessing.DataManager method)</a>
+</li>
       <li><a href="modules/petrophysics/water_saturation.html#stoneforge.petrophysics.water_saturation.fertl">fertl() (in module stoneforge.petrophysics.water_saturation)</a>
 </li>
   </ul></td>
@@ -371,15 +407,17 @@
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.fluid_substitution.gassmann_subs">gassmann_subs() (in module stoneforge.rock_physics.fluid_substitution)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.gaussian_variogram_model">gaussian_variogram_model() (in module stoneforge.pseudo_wells.monte_carlo_simulations)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.gaymard_porosity">gaymard_porosity() (in module stoneforge.petrophysics.porosity)</a>
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.gem.gem">gem() (in module stoneforge.rock_physics.gem)</a>
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.gem.gem_model">gem_model() (in module stoneforge.rock_physics.gem)</a>
+</li>
+      <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.referenced.generate">generate() (in module stoneforge.pseudo_wells.referenced)</a>
 </li>
       <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.graph">graph() (stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model method)</a>
 </li>
@@ -435,6 +473,8 @@
     module
 
       <ul>
+        <li><a href="modules/data_management/preprocessing.html#module-stoneforge.data_management.preprocessing">stoneforge.data_management.preprocessing</a>
+</li>
         <li><a href="modules/machinelearning/classification.html#module-stoneforge.machine_learning.classification">stoneforge.machine_learning.classification</a>
 </li>
         <li><a href="modules/machinelearning/classification.html#module-stoneforge.machine_learning.classification.fit">stoneforge.machine_learning.classification.fit</a>
@@ -463,6 +503,8 @@
 </li>
         <li><a href="modules/pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">stoneforge.pseudo_wells.monte_carlo_simulations</a>
 </li>
+        <li><a href="modules/pseudowells.html#module-stoneforge.pseudo_wells.referenced">stoneforge.pseudo_wells.referenced</a>
+</li>
         <li><a href="modules/reservoir/net_pay.html#module-stoneforge.reservoir.net_pay">stoneforge.reservoir.net_pay</a>
 </li>
         <li><a href="modules/rockphysics.html#module-stoneforge.rock_physics">stoneforge.rock_physics</a>
@@ -488,12 +530,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/reservoir/net_pay.html#stoneforge.reservoir.net_pay.net_pay_siliciclastic">net_pay_siliciclastic() (in module stoneforge.reservoir.net_pay)</a>
 </li>
-      <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_density_porosity">neutron_density_porosity() (in module stoneforge.petrophysics.porosity)</a>
+      <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_correction_porosity">neutron_correction_porosity() (in module stoneforge.petrophysics.porosity)</a>
 </li>
-      <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_porosity">neutron_porosity() (in module stoneforge.petrophysics.porosity)</a>
+      <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_density_porosity">neutron_density_porosity() (in module stoneforge.petrophysics.porosity)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_porosity">neutron_porosity() (in module stoneforge.petrophysics.porosity)</a>
+</li>
       <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_graph">norm_graph() (stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model method)</a>
 </li>
       <li><a href="modules/pseudowells.html#stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model.norm_variography">norm_variography() (stoneforge.pseudo_wells.monte_carlo_simulations.variogram_model method)</a>
@@ -554,6 +598,13 @@
 </li>
       <li><a href="modules/rockphysics.html#stoneforge.rock_physics.gem.stiff_sand">stiff_sand() (in module stoneforge.rock_physics.gem)</a>
 </li>
+      <li>
+    stoneforge.data_management.preprocessing
+
+      <ul>
+        <li><a href="modules/data_management/preprocessing.html#module-stoneforge.data_management.preprocessing">module</a>
+</li>
+      </ul></li>
       <li>
     stoneforge.machine_learning.classification
 
@@ -652,6 +703,13 @@
 
       <ul>
         <li><a href="modules/pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">module</a>
+</li>
+      </ul></li>
+      <li>
+    stoneforge.pseudo_wells.referenced
+
+      <ul>
+        <li><a href="modules/pseudowells.html#module-stoneforge.pseudo_wells.referenced">module</a>
 </li>
       </ul></li>
       <li>

@@ -76,6 +76,7 @@
 <li class="toctree-l4"><a class="reference internal" href="petrophysics/porosity.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="petrophysics/porosity.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="petrophysics/porosity.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_correction_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_correction_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="petrophysics/porosity.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
@@ -188,6 +189,12 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#module-stoneforge.pseudo_wells.referenced">Referenced-Based Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.pseudo_wells.referenced.anadrill_siliciclastic"><code class="docutils literal notranslate"><span class="pre">anadrill_siliciclastic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.pseudo_wells.referenced.color_codes"><code class="docutils literal notranslate"><span class="pre">color_codes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stoneforge.pseudo_wells.referenced.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
@@ -224,6 +231,19 @@
 <li class="toctree-l3"><a class="reference internal" href="machinelearning/regression.html#references">References</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data_management/index.html">Data Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data_management/preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data_management/preprocessing.html#module-stoneforge.data_management.preprocessing">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataManager"><code class="docutils literal notranslate"><span class="pre">DataManager</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="data_management/preprocessing.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data_management/index.html#references">References</a></li>
 </ul>
 </li>
 </ul>
@@ -559,9 +579,67 @@ It provides methods to graph the variogram, calculate the variogram for a given 
 </dd></dl>
 
 </section>
+<section id="module-stoneforge.pseudo_wells.referenced">
+<span id="referenced-based-generation"></span><h2>Referenced-Based Generation<a class="headerlink" href="#module-stoneforge.pseudo_wells.referenced" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.referenced.anadrill_siliciclastic">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.referenced.</span></span><span class="sig-name descname"><span class="pre">anadrill_siliciclastic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/pseudo_wells/referenced.html#anadrill_siliciclastic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.referenced.anadrill_siliciclastic" title="Link to this definition"></a></dt>
+<dd><p>Generate synthetic well log data based on the SLB/Anadrill siliciclastic facies model adapted from SLB<a class="footnote-reference brackets" href="#footcite-slb1972" id="id25" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a>, Freire<a class="footnote-reference brackets" href="#footcite-freire2020youtube" id="id26" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>structure</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></span>) – Tuple in format (facies_list, counts_list) or list. Standard is false wich display facies index.</p></li>
+<li><p><strong>step</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Depth step for synthetic log</p></li>
+<li><p><strong>top</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Top depth of the synthetic log (if None, starts at 0)</p></li>
+<li><p><strong>bottom</strong> (<em>float</em><em> or </em><em>None</em>) – Bottom depth of the synthetic log (if None, determined by total samples and step)</p></li>
+<li><p><strong>random_state</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – Random seed for reproducibility (if False, no noise is added)</p></li>
+<li><p><strong>noise</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Proportional noise level to add to the curves (e.g., 0.005 for 0.5%)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing synthetic well log data, with keys for each curve and facies.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.referenced.color_codes">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.referenced.</span></span><span class="sig-name descname"><span class="pre">color_codes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/pseudo_wells/referenced.html#color_codes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.referenced.color_codes" title="Link to this definition"></a></dt>
+<dd><p>Return color codes for lithology and fluid types in the Anadrill siliciclastic facies model.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stoneforge.pseudo_wells.referenced.generate">
+<span class="sig-prename descclassname"><span class="pre">stoneforge.pseudo_wells.referenced.</span></span><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'anadrill_siliciclastic.ggf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.005</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/stoneforge/pseudo_wells/referenced.html#generate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#stoneforge.pseudo_wells.referenced.generate" title="Link to this definition"></a></dt>
+<dd><p>Generate synthetic well log data based on facies structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>structure</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></span>) – Tuple in format (facies_list, counts_list)</p></li>
+<li><p><strong>data_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Path to GGF file containing statistical data (standard is ‘anadrill_siliciclastic.ggf’)</p></li>
+<li><p><strong>step</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Depth step for synthetic log</p></li>
+<li><p><strong>top</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Top depth of the synthetic log (if None, starts at 0)</p></li>
+<li><p><strong>bottom</strong> (<em>float</em><em> or </em><em>None</em>) – Bottom depth of the synthetic log (if None, determined by total samples and step)</p></li>
+<li><p><strong>random_state</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – Random seed for reproducibility (if False, no noise is added)</p></li>
+<li><p><strong>noise</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span>) – Proportional noise level to add to the curves (e.g., 0.005 for 0.5%)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary containing synthetic well log data, with keys for each curve and facies.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
-<div class="docutils container" id="id25">
+<div class="docutils container" id="id27">
 <aside class="footnote-list brackets">
 <aside class="footnote brackets" id="footcite-dvorkin2014" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
@@ -608,6 +686,14 @@ It provides methods to graph the variogram, calculate the variogram for a given 
 <aside class="footnote brackets" id="footcite-burgess1980scipy-models" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id20">10</a><span class="fn-bracket">]</span></span>
 <p>T. M. BURGESS and R. WEBSTER. Optimal interpolation and isarithmic mapping of soil properties: i the semi‐variogram and punctual kriging. <em>Journal of Soil Science</em>, 31(2):315–331, 6 1980. URL: <a class="reference external" href="https://mmaelicke.github.io/scikit-gstat/reference/models.html">https://mmaelicke.github.io/scikit-gstat/reference/models.html</a>, <a class="reference external" href="https://doi.org/10.1111/j.1365-2389.1980.tb02084.x">doi:10.1111/j.1365-2389.1980.tb02084.x</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-slb1972" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id25">11</a><span class="fn-bracket">]</span></span>
+<p>Ltd. SLB. Interpretacion de perfiles. 1972. URL: <a class="reference external" href="https://www.slb.com/products-and-services/innovating-in-oil-and-gas/reservoir-characterization/interpretation-and-analysis">https://www.slb.com/products-and-services/innovating-in-oil-and-gas/reservoir-characterization/interpretation-and-analysis</a>.</p>
+</aside>
+<aside class="footnote brackets" id="footcite-freire2020youtube" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id26">12</a><span class="fn-bracket">]</span></span>
+<p>Antonio Fernando Menezes Freire. Uma breve introdução à interpretação geológica de perfis geofísicos de poços. 2020. URL: <a class="reference external" href="https://www.youtube.com/watch?v=k8yIvVFCguA">https://www.youtube.com/watch?v=k8yIvVFCguA</a> (visited on 2025-07-27).</p>
 </aside>
 </aside>
 </div>

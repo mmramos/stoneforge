@@ -75,6 +75,7 @@
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.density_porosity"><code class="docutils literal notranslate"><span class="pre">density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.effective_porosity"><code class="docutils literal notranslate"><span class="pre">effective_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.gaymard_porosity"><code class="docutils literal notranslate"><span class="pre">gaymard_porosity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_correction_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_correction_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_density_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_density_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.neutron_porosity"><code class="docutils literal notranslate"><span class="pre">neutron_porosity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/petrophysics/porosity.html#stoneforge.petrophysics.porosity.porosity"><code class="docutils literal notranslate"><span class="pre">porosity()</span></code></a></li>
@@ -187,6 +188,12 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="modules/pseudowells.html#module-stoneforge.pseudo_wells.referenced">Referenced-Based Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/pseudowells.html#stoneforge.pseudo_wells.referenced.anadrill_siliciclastic"><code class="docutils literal notranslate"><span class="pre">anadrill_siliciclastic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/pseudowells.html#stoneforge.pseudo_wells.referenced.color_codes"><code class="docutils literal notranslate"><span class="pre">color_codes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/pseudowells.html#stoneforge.pseudo_wells.referenced.generate"><code class="docutils literal notranslate"><span class="pre">generate()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="modules/pseudowells.html#references">References</a></li>
 </ul>
 </li>
@@ -225,6 +232,19 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="modules/data_management/index.html">Data Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/data_management/preprocessing.html">Preprocessing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/data_management/preprocessing.html#module-stoneforge.data_management.preprocessing">Basic Calculations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/data_management/preprocessing.html#stoneforge.data_management.preprocessing.DataManager"><code class="docutils literal notranslate"><span class="pre">DataManager</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules/data_management/preprocessing.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/data_management/index.html#references">References</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -253,7 +273,7 @@
              
   <section id="welcome-to-stoneforge-s-documentation">
 <h1>Welcome to Stoneforge’s documentation!<a class="headerlink" href="#welcome-to-stoneforge-s-documentation" title="Link to this heading"></a></h1>
-<p><strong>Version</strong>: 0.2.1</p>
+<p><strong>Version</strong>: 0.2.2</p>
 <p><strong>Stoneforge</strong> is a Python library for geophysics equations, algorithms and methods that also,
 are used in the software <strong>APPy</strong>. It is linked to the GIECAR laboratory at the Universidade Federal
 Fluminense (UFF) related to the Geology and Geophysics Departament (GGO), and its purpose is to teach
@@ -295,12 +315,18 @@ and develop routines in Python to solve geological and geophysical problems. Mai
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules/pseudowells.html">Pseudo Wells</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/pseudowells.html#module-stoneforge.pseudo_wells.monte_carlo_simulations">Monte Carlo Simulations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/pseudowells.html#module-stoneforge.pseudo_wells.referenced">Referenced-Based Generation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/pseudowells.html#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules/machinelearning/index.html">Machine Learning</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/machinelearning/classification.html">Classification</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/machinelearning/regression.html">Regression</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/data_management/index.html">Data Management</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/data_management/preprocessing.html">Preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/data_management/index.html#references">References</a></li>
 </ul>
 </li>
 </ul>

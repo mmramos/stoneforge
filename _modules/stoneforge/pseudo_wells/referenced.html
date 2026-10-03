@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>stoneforge.rock_physics.rock_physics_bounds &mdash; Stoneforge  documentation</title>
+  <title>stoneforge.pseudo_wells.referenced &mdash; Stoneforge  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
 
@@ -260,7 +260,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">stoneforge.rock_physics.rock_physics_bounds</li>
+      <li class="breadcrumb-item active">stoneforge.pseudo_wells.referenced</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -269,81 +269,228 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for stoneforge.rock_physics.rock_physics_bounds</h1><div class="highlight"><pre>
+  <h1>Source code for stoneforge.pseudo_wells.referenced</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
 
-<div class="viewcode-block" id="reuss">
-<a class="viewcode-back" href="../../../modules/rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.reuss">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">reuss</span><span class="p">(</span>
-    <span class="n">f</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">"Fractions (proportions) of each mineral"</span><span class="p">],</span>
-    <span class="n">m</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">"Elastic modulus of each mineral"</span><span class="p">])</span><span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Calculate elastic modulus of the effective mineral using the :footcite:t:`reuss1929` bound (:footcite:t:`dvorkin1991`).</span>
+<div class="viewcode-block" id="color_codes">
+<a class="viewcode-back" href="../../../modules/pseudowells.html#stoneforge.pseudo_wells.referenced.color_codes">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">color_codes</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">"""Return color codes for lithology and fluid types in the Anadrill siliciclastic facies model."""</span>
+
+    <span class="n">lito</span> <span class="o">=</span><span class="p">{</span>
+        <span class="mi">22</span><span class="p">:</span><span class="s2">"darkgreen"</span><span class="p">,</span>
+        <span class="mi">27</span><span class="p">:</span><span class="s2">"orange"</span><span class="p">,</span>
+        <span class="mi">25</span><span class="p">:</span><span class="s2">"grey"</span><span class="p">,</span>
+        <span class="mi">49</span><span class="p">:</span><span class="s2">"gold"</span><span class="p">,</span>
+        <span class="mi">48</span><span class="p">:</span><span class="s2">"yellow"</span><span class="p">,</span>
+        <span class="mi">57</span><span class="p">:</span><span class="s2">"green"</span><span class="p">,</span>
+        <span class="mi">54</span><span class="p">:</span><span class="s2">"maroon"</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">fluid</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'brine'</span><span class="p">:</span><span class="s1">'navy'</span><span class="p">,</span>
+        <span class="s1">'fresh_water'</span><span class="p">:</span><span class="s1">'blue'</span><span class="p">,</span>
+        <span class="s1">'gas'</span><span class="p">:</span><span class="s1">'red'</span><span class="p">,</span>
+        <span class="s1">'oil'</span><span class="p">:</span><span class="s1">'green'</span><span class="p">,</span>
+        <span class="s1">'none'</span><span class="p">:</span><span class="s1">'white'</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">lito</span><span class="p">,</span> <span class="n">fluid</span></div>
+
+
+<div class="viewcode-block" id="anadrill_siliciclastic">
+<a class="viewcode-back" href="../../../modules/pseudowells.html#stoneforge.pseudo_wells.referenced.anadrill_siliciclastic">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">anadrill_siliciclastic</span><span class="p">(</span>
+    <span class="n">structure</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="s2">"Data structure"</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">step</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"Depth step"</span><span class="p">]</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">top</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"Top depth"</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">"Random state"</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">noise</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"Noise level"</span><span class="p">]</span><span class="o">=</span><span class="mf">0.005</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">"""Generate synthetic well log data based on the SLB/Anadrill siliciclastic facies model adapted from :footcite:t:`slb1972,freire2020youtube`</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    structure : tuple</span>
+<span class="sd">        Tuple in format (facies_list, counts_list) or list. Standard is false wich display facies index.</span>
+<span class="sd">    step : float</span>
+<span class="sd">        Depth step for synthetic log</span>
+<span class="sd">    top : float or None</span>
+<span class="sd">        Top depth of the synthetic log (if None, starts at 0)</span>
+<span class="sd">    bottom : float or None</span>
+<span class="sd">        Bottom depth of the synthetic log (if None, determined by total samples and step)</span>
+<span class="sd">    random_state : int or False</span>
+<span class="sd">        Random seed for reproducibility (if False, no noise is added)</span>
+<span class="sd">    noise : float</span>
+<span class="sd">        Proportional noise level to add to the curves (e.g., 0.005 for 0.5%)</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        Dictionary containing synthetic well log data, with keys for each curve and facies.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">structure</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"shale"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"clean_sandstone with gas"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"clean_sandstone with oil"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"clean_sandstone with brine"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">"feldspatic sandstone"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"unconsolidated sandstone with fresh water"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s2">"organic shale"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s2">"siltite"</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">"dirty sandstone with brine"</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">generate</span><span class="p">(</span>
+        <span class="n">structure</span><span class="p">,</span>
+        <span class="n">data_path</span><span class="o">=</span><span class="s1">'anadrill_siliciclastic.ggf'</span><span class="p">,</span>
+        <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span>
+        <span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+        <span class="n">noise</span><span class="o">=</span><span class="n">noise</span>
+    <span class="p">),{</span><span class="s1">'DEPTH'</span><span class="p">:</span><span class="s1">'m'</span><span class="p">,</span><span class="s1">'GR'</span><span class="p">:</span><span class="s1">'API'</span><span class="p">,</span><span class="s1">'RES'</span><span class="p">:</span><span class="s1">'ohm.m'</span><span class="p">,</span><span class="s1">'NPHI'</span><span class="p">:</span><span class="s1">'m3/m3'</span><span class="p">,</span><span class="s1">'DEN'</span><span class="p">:</span><span class="s1">'g/cm3'</span><span class="p">,</span><span class="s1">'DT'</span><span class="p">:</span><span class="s1">'us/ft'</span><span class="p">,</span><span class="s1">'CODE'</span><span class="p">:</span><span class="s1">''</span><span class="p">,</span><span class="s1">'ROCK'</span><span class="p">:</span><span class="s1">''</span><span class="p">,</span><span class="s1">'FLUID'</span><span class="p">:</span><span class="s1">''</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="generate">
+<a class="viewcode-back" href="../../../modules/pseudowells.html#stoneforge.pseudo_wells.referenced.generate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span>
+    <span class="n">structure</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="s2">"Data structure"</span><span class="p">],</span>
+    <span class="n">data_path</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">"Path to GGF file"</span><span class="p">]</span><span class="o">=</span><span class="s1">'anadrill_siliciclastic.ggf'</span><span class="p">,</span>
+    <span class="n">step</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"Depth step"</span><span class="p">]</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">top</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"Top depth"</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="s2">"Random state"</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">noise</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="s2">"Noise level"</span><span class="p">]</span><span class="o">=</span><span class="mf">0.005</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Generate synthetic well log data based on facies structure.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    f : array_like</span>
-<span class="sd">        Fractions (proportions) of each mineral.</span>
-<span class="sd">    m : array_like</span>
-<span class="sd">        Elastic modulus of each mineral.</span>
+<span class="sd">    structure : tuple</span>
+<span class="sd">        Tuple in format (facies_list, counts_list)</span>
+<span class="sd">    data_path : str</span>
+<span class="sd">        Path to GGF file containing statistical data (standard is 'anadrill_siliciclastic.ggf')</span>
+<span class="sd">    step : float</span>
+<span class="sd">        Depth step for synthetic log</span>
+<span class="sd">    top : float or None</span>
+<span class="sd">        Top depth of the synthetic log (if None, starts at 0)</span>
+<span class="sd">    bottom : float or None</span>
+<span class="sd">        Bottom depth of the synthetic log (if None, determined by total samples and step)</span>
+<span class="sd">    random_state : int or False</span>
+<span class="sd">        Random seed for reproducibility (if False, no noise is added)</span>
+<span class="sd">    noise : float</span>
+<span class="sd">        Proportional noise level to add to the curves (e.g., 0.005 for 0.5%)</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    r: array_like</span>
-<span class="sd">        Reuss bound.</span>
-<span class="sd">    </span>
+<span class="sd">    dict</span>
+<span class="sd">        Dictionary containing synthetic well log data, with keys for each curve and facies.</span>
 <span class="sd">    """</span>
-    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">f</span><span class="o">/</span><span class="n">m</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
+    <span class="c1"># -------------------------</span>
+    <span class="c1"># Normalize structure input</span>
+    <span class="c1"># -------------------------</span>
+    
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">facies_seq</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">counts_seq</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">structure</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">facies_seq</span><span class="p">,</span> <span class="n">counts_seq</span> <span class="o">=</span> <span class="n">structure</span>
 
-<div class="viewcode-block" id="voigt">
-<a class="viewcode-back" href="../../../modules/rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.voigt">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">voigt</span><span class="p">(</span>
-    <span class="n">f</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">"Fractions (proportions) of each mineral"</span><span class="p">],</span>
-    <span class="n">m</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">"Elastic modulus of each mineral"</span><span class="p">])</span><span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Calculate elastic modulus of the effective mineral using the :footcite:t:`voigt1966` bound (:footcite:t:`dvorkin1991`).</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">facies_seq</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts_seq</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"facies and counts must have same length"</span><span class="p">)</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    f : array_like</span>
-<span class="sd">        Fractions (proportions) of each mineral.</span>
-<span class="sd">    m : array_like</span>
-<span class="sd">        Elastic modulus of each mineral.</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">"structure must be either dict or (facies_list, counts_list)"</span>
+        <span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">([]):</span>
+        <span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span>
+        <span class="n">_s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span> <span class="n">_n</span>
+        <span class="n">structure</span> <span class="o">=</span> <span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">_s</span><span class="p">)</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    v: array_like</span>
-<span class="sd">        Voigt bound.</span>
-<span class="sd">    </span>
-<span class="sd">    """</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">f</span><span class="o">*</span><span class="n">m</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+    <span class="c1"># -------------------------</span>
+    <span class="c1"># Load reference data</span>
+    <span class="c1"># -------------------------</span>
+    <span class="n">module_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">module_dir</span> <span class="o">/</span> <span class="n">data_path</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+        <span class="n">example</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
 
+    <span class="c1"># RNG only if noise is enabled</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">random_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
 
+    <span class="c1"># -------------------------</span>
+    <span class="c1"># Detect numeric vs categorical fields</span>
+    <span class="c1"># -------------------------</span>
+    <span class="n">header_f</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">header_s</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="hill">
-<a class="viewcode-back" href="../../../modules/rockphysics.html#stoneforge.rock_physics.rock_physics_bounds.hill">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">hill</span><span class="p">(</span>
-    <span class="n">f</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">"Fractions (proportions) of each mineral"</span><span class="p">],</span>
-    <span class="n">m</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="s2">"Elastic modulus of each mineral"</span><span class="p">])</span><span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""Calculate elastic modulus of the effective mineral using the :footcite:t:`hill1952` average (:footcite:t:`dvorkin1991`.</span>
+    <span class="n">sample_facies</span> <span class="o">=</span> <span class="n">facies_seq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    f : array_like</span>
-<span class="sd">        Fractions (proportions) of each mineral.</span>
-<span class="sd">    m : array_like</span>
-<span class="sd">        Elastic modulus of each mineral.</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">example</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">sample_facies</span><span class="p">],</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">header_f</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">header_s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    v: array_like</span>
-<span class="sd">        Hill average.</span>
-<span class="sd">    </span>
-<span class="sd">    """</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">f</span><span class="o">/</span><span class="n">m</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">f</span><span class="o">*</span><span class="n">m</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="n">v</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span></div>
+    <span class="n">n_total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">counts_seq</span><span class="p">)</span>
+
+    <span class="n">curves</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_total</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">header_f</span><span class="p">)))</span>
+    <span class="n">classes</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">header_s</span><span class="p">}</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># -------------------------</span>
+    <span class="c1"># Main generation loop</span>
+    <span class="c1"># -------------------------</span>
+    <span class="k">for</span> <span class="n">facies</span><span class="p">,</span> <span class="n">n_samples</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">facies_seq</span><span class="p">,</span> <span class="n">counts_seq</span><span class="p">):</span>
+
+        <span class="n">values_f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">example</span><span class="p">[</span><span class="n">h</span><span class="p">][</span><span class="n">facies</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">header_f</span><span class="p">])</span>
+        <span class="n">values_s</span> <span class="o">=</span> <span class="p">[</span><span class="n">example</span><span class="p">[</span><span class="n">h</span><span class="p">][</span><span class="n">facies</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">header_s</span><span class="p">]</span>
+
+        <span class="n">block</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">values_f</span><span class="p">,</span> <span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># Add proportional Gaussian noise</span>
+        <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">eps</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">block</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">block</span> <span class="o">=</span> <span class="n">block</span> <span class="o">+</span> <span class="n">block</span> <span class="o">*</span> <span class="n">eps</span>
+
+        <span class="n">curves</span><span class="p">[</span><span class="n">idx</span><span class="p">:</span><span class="n">idx</span><span class="o">+</span><span class="n">n_samples</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">block</span>
+
+        <span class="k">for</span> <span class="n">h</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">header_s</span><span class="p">,</span> <span class="n">values_s</span><span class="p">):</span>
+            <span class="n">classes</span><span class="p">[</span><span class="n">h</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">v</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">)</span>
+
+        <span class="n">idx</span> <span class="o">+=</span> <span class="n">n_samples</span>
+
+    <span class="c1"># -------------------------</span>
+    <span class="c1"># Depth handling</span>
+    <span class="c1"># -------------------------</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">top</span><span class="p">)</span> <span class="k">if</span> <span class="n">top</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mf">0.0</span>
+        
+    <span class="n">final_data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">final_data</span><span class="p">[</span><span class="s1">'DEPTH'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_ltop</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">top</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_total</span><span class="p">):</span>
+        <span class="n">_ltop</span> <span class="o">=</span> <span class="n">_ltop</span> <span class="o">+</span> <span class="n">step</span>
+        <span class="n">final_data</span><span class="p">[</span><span class="s1">'DEPTH'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ltop</span><span class="p">)</span>
+        
+    <span class="c1">#final_data['DEPTH'] = np.linspace(top, bottom, num=n_total)</span>
+    <span class="n">final_data</span><span class="p">[</span><span class="s1">'DEPTH'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">final_data</span><span class="p">[</span><span class="s1">'DEPTH'</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">header_f</span><span class="p">):</span>
+        <span class="n">final_data</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">curves</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">header_s</span><span class="p">:</span>
+        <span class="n">final_data</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">classes</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">final_data</span></div>
 
 </pre></div>
 
